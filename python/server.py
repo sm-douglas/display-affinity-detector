@@ -8,7 +8,15 @@ Instalar dependencias:
 
 Rodar:
     python server.py
-    (ou: uvicorn server:app --host 0.0.0.0 --port 8000)
+
+IMPORTANTE (seguranca): por padrao o servidor escuta so em 127.0.0.1
+(localhost), ou seja, so processos na sua propria maquina conseguem
+acessar. Os dados expostos aqui (titulos de janela) podem conter
+informacao sensivel -- nomes de conversa, arquivos abertos, abas do
+navegador. Se precisar expor na rede local (por exemplo, pra um
+frontend rodando em outro dispositivo durante a demo), troque o host
+abaixo para "0.0.0.0" conscientemente, sabendo que qualquer outro
+dispositivo na mesma rede vai conseguir ler esses dados.
 
 Endpoints:
     GET  /windows            -> todas as janelas visiveis + status
@@ -59,11 +67,13 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Display Affinity Detector", lifespan=lifespan)
 
-# CORS liberado pra facilitar consumo de um frontend na hackathon
+# CORS restrito a localhost por padrao. Ajuste allow_origins se o
+# frontend for servido de outro endereco -- evite "*" em producao,
+# ja que os dados expostos aqui podem ser sensiveis (titulos de janela).
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_methods=["GET"],
     allow_headers=["*"],
 )
 
@@ -118,4 +128,7 @@ async def stream_events():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # host="127.0.0.1": so acessivel da propria maquina.
+    # Trocar para "0.0.0.0" expoe a API pra qualquer dispositivo na
+    # mesma rede -- so faca isso se tiver certeza do motivo.
+    uvicorn.run(app, host="127.0.0.1", port=8000)
