@@ -4,10 +4,6 @@ Ferramenta para identificar, em tempo real, quais janelas do Windows estão
 protegidas contra captura de tela via `SetWindowDisplayAffinity`
 (`WDA_EXCLUDEFROMCAPTURE` / `WDA_MONITOR`).
 
-Feita para uma hackathon com foco em observabilidade: em vez de tentar
-contornar a proteção, o projeto identifica quando e onde ela está sendo
-aplicada no sistema.
-
 ## O que tem aqui
 
 - **`native/detector.cpp`**: versão em C++ puro (Win32), enumera todas as
