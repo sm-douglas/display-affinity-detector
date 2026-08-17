@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar detector.cpp",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "native/detector.cpp",
+                "-o",
+                "native/detector.exe",
+                "-luser32"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Gerar GUI.exe (PyInstaller)",
+            "type": "shell",
+            "command": "pyinstaller",
+            "args": [
+                "--onefile",
+                "--windowed",
+                "--name",
+                "AffinityDetector",
+                "python/gui.py"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}

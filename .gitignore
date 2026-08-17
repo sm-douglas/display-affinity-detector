@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# C++ build
+*.exe
+*.o
+*.obj
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Icones e imagens pessoais (opcional -- remova estas linhas se quiser versionar o icone do projeto)
+python/icone*.png
+python/icone*.ico
+
+# Editor
+.vscode/*
+!.vscode/tasks.json
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
